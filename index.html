@@ -3,35 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usedatacore | Inteligência em Dados & IA</title>
     
+    <!-- SEO & Social Meta Tags -->
+    <title>Usedatacore | Inteligência em Dados & IA</title>
+    <meta name="description" content="Engenharia de dados e automação inteligente para transformar processos complexos em resultados escaláveis.">
+    <meta property="og:title" content="Usedatacore | Inteligência em Dados & IA">
+    <meta property="og:description" content="Especialistas em automação n8n, IA Generativa e Arquitetura de Dados.">
+    <meta property="og:image" content="assets/usedatacore-outline-logo.png">
+    <meta property="og:type" content="website">
+
     <link rel="icon" type="image/png" href="assets/udc-icon.png">
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animate on Scroll -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <style>
         :root {
             --bg-dark: #0d1117;
             --bg-card: #161b22;
             --primary: #58a6ff;
+            --primary-glow: rgba(88, 166, 255, 0.15);
             --accent: #238636;
             --text-main: #c9d1d9;
             --text-dim: #8b949e;
+            --glass: rgba(13, 17, 23, 0.7);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
 
         body {
             background-color: var(--bg-dark);
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         /* --- NAVBAR --- */
         .navbar {
             width: 100%;
-            padding: 15px 5%;
+            padding: 20px 5%;
             position: fixed;
             top: 0;
             left: 0;
@@ -39,9 +55,11 @@
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            background: rgba(13, 17, 23, 0.8);
-            backdrop-filter: blur(10px);
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
         }
 
         .nav-brand {
@@ -52,38 +70,51 @@
         }
 
         .nav-logo {
-            height: 35px;
+            height: 32px;
             width: auto;
-            filter: drop-shadow(0 0 5px rgba(88, 166, 255, 0.3));
+            filter: drop-shadow(0 0 8px var(--primary-glow));
         }
 
         .nav-brand-text {
             color: #fff;
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             letter-spacing: -0.5px;
         }
 
         .nav-links a {
             color: var(--text-dim);
             text-decoration: none;
-            margin-left: 25px;
+            margin-left: 30px;
             font-size: 0.9rem;
             font-weight: 500;
-            transition: color 0.3s;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .nav-links a:hover { color: var(--primary); }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover { color: #fff; }
+        .nav-links a:hover::after { width: 100%; }
 
         /* --- HERO SECTION --- */
         header {
             position: relative;
-            height: 75vh;
+            height: 85vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: linear-gradient(rgba(13, 17, 23, 0.6), rgba(13, 17, 23, 0.9)), 
+            background: linear-gradient(rgba(13, 17, 23, 0.7), rgba(13, 17, 23, 0.95)), 
                         url('assets/datacore-hero.png');
             background-size: cover;
             background-position: center;
@@ -92,35 +123,44 @@
         }
 
         .hero-content {
-            max-width: 850px;
-            margin-top: -50px;
+            max-width: 900px;
+            z-index: 2;
         }
 
         .tagline {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: var(--primary);
-            margin-bottom: 15px;
-            font-weight: 600;
-            letter-spacing: 3px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 4px;
             text-transform: uppercase;
+            display: inline-block;
+            border: 1px solid var(--primary-glow);
+            padding: 6px 15px;
+            border-radius: 50px;
+            background: var(--primary-glow);
         }
 
         h1 {
-            font-size: clamp(3rem, 10vw, 5rem);
+            font-size: clamp(3.5rem, 12vw, 6rem);
             font-weight: 800;
             color: #fff;
-            letter-spacing: -2px;
-            margin-bottom: 20px;
-            line-height: 1;
+            letter-spacing: -3px;
+            margin-bottom: 25px;
+            line-height: 0.95;
         }
 
-        h1 span { color: var(--primary); }
+        h1 span {
+            background: linear-gradient(90deg, var(--primary), #a5d1ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
         .hero-description {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             color: var(--text-dim);
-            margin-bottom: 40px;
-            max-width: 650px;
+            margin-bottom: 45px;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -128,80 +168,181 @@
         .btn-contact {
             background-color: var(--accent);
             color: #fff;
-            padding: 18px 40px;
+            padding: 20px 45px;
             text-decoration: none;
-            border-radius: 10px;
+            border-radius: 12px;
             font-weight: 700;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: inline-block;
-            box-shadow: 0 10px 20px rgba(35, 134, 54, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(35, 134, 54, 0.3);
         }
 
         .btn-contact:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(35, 134, 54, 0.4);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(35, 134, 54, 0.5);
             filter: brightness(1.1);
         }
 
         /* --- SERVIÇOS --- */
-.services-container {
-    padding: 0 5% 100px; /* Removi o padding top exagerado */
-    max-width: 1200px;
-    margin: -100px auto 0; /* Sobe os cards para cima da imagem hero */
-    position: relative;
-    z-index: 20;
-}
-
-.grid {
-    display: grid;
-    /* Alteração aqui: força 3 colunas iguais em telas grandes */
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 20px;
-}
-
-.card {
-    background: var(--bg-card);
-    padding: 30px; /* Reduzi um pouco o padding para caber melhor */
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.4s ease;
-    text-align: left;
-}
-
-/* --- AJUSTE PARA CELULAR --- */
-@media (max-width: 992px) {
-    .grid {
-        /* Em tablets e celulares, eles voltam a ficar um embaixo do outro */
-        grid-template-columns: 1fr; 
-    }
-    .services-container {
-        margin-top: 20px; /* No mobile não precisa subir os cards */
-    }
-}
-        .card:hover {
-            border-color: var(--primary);
-            transform: translateY(-10px);
-            background: #1c2128;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        .services-container {
+            padding: 0 5% 120px;
+            max-width: 1250px;
+            margin: -80px auto 0;
+            position: relative;
+            z-index: 20;
         }
 
-        .card i { color: var(--primary); margin-bottom: 25px; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 25px;
+        }
 
-        .card h3 { color: #fff; margin-bottom: 15px; font-size: 1.6rem; }
+        .card {
+            background: var(--bg-card);
+            padding: 40px 35px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
 
-        .card p { color: var(--text-dim); font-size: 1rem; }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at top right, var(--primary-glow), transparent);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
 
-        footer {
-            padding: 80px 20px;
-            text-align: center;
-            border-top: 1px solid #30363d;
+        .card:hover {
+            border-color: rgba(88, 166, 255, 0.3);
+            transform: translateY(-12px);
+            background: #1c2128;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+
+        .card:hover::before { opacity: 1; }
+
+        .card i { 
+            color: var(--primary); 
+            margin-bottom: 30px; 
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover i { transform: scale(1.1) rotate(5deg); }
+
+        .card h3 { color: #fff; margin-bottom: 18px; font-size: 1.7rem; font-weight: 700; }
+        .card p { color: var(--text-dim); font-size: 1.05rem; line-height: 1.7; }
+
+        /* --- SEÇÃO SOBRE --- */
+        .about-section {
+            padding: 120px 5%;
+            max-width: 1250px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.4);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.8s ease;
+        }
+
+        .about-section:hover .about-image img { transform: scale(1.05); }
+
+        .about-text h2 {
+            font-size: 3rem;
+            color: #fff;
+            margin-bottom: 25px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .about-text p {
+            font-size: 1.15rem;
             color: var(--text-dim);
+            margin-bottom: 30px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .stat-item {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-item h4 { color: var(--primary); font-size: 1.8rem; margin-bottom: 5px; }
+        .stat-item span { color: var(--text-dim); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 100px 5% 50px;
+            text-align: center;
+            background: linear-gradient(to top, #080b10, var(--bg-dark));
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-logo { height: 40px; margin-bottom: 30px; opacity: 0.8; }
+
+        .footer-links {
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .footer-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover { color: var(--primary); }
+
+        .copyright {
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #484f58;
+            font-size: 0.85rem;
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 992px) {
+            .grid, .about-section { grid-template-columns: 1fr; }
+            .services-container { margin-top: 40px; }
+            header { height: auto; padding: 150px 20px 100px; }
+            .about-section { text-align: center; gap: 40px; }
+            .stats-grid { max-width: 500px; margin: 0 auto; }
+            .nav-links { display: none; }
         }
 
         @media (max-width: 768px) {
-            header { background-attachment: scroll; }
-            h1 { font-size: 3.2rem; }
-            .nav-links { display: none; } /* Simplificação mobile */
+            h1 { font-size: 3.5rem; }
+            .tagline { font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -215,50 +356,103 @@
         <div class="nav-links">
             <a href="#servicos">Serviços</a>
             <a href="#sobre">Sobre</a>
-            <a href="https://wa.me/SEUNUMERO">Contato</a>
+            <a href="https://wa.me/5511980798331">Contato</a>
         </div>
     </nav>
 
     <header>
-        <div class="hero-content">
-            <p class="tagline">Conexão • Dados • IA</p>
+        <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+            <div class="tagline">Inteligência • Dados • Futuro</div>
             <h1>Use<span>datacore</span></h1>
             <p class="hero-description">
-                Engenharia de dados e automação inteligente para transformar processos complexos em resultados escaláveis.
+                Engenharia de dados de alta performance e automações inteligentes que transformam a complexidade em escala operacional.
             </p>
-            <a href="https://wa.me/5511980798331?text=Olá! Vi o site da Usedatacore e gostaria de saber mais sobre automações." class="btn-contact">Começar Projeto</a>
+            <a href="https://wa.me/5511980798331?text=Olá! Vi o site da Usedatacore e gostaria de saber mais sobre automações." class="btn-contact">
+                Começar Projeto
+                <i data-lucide="arrow-right" size="18"></i>
+            </a>
         </div>
     </header>
 
     <main class="services-container" id="servicos">
         <div class="grid">
-            <div class="card">
-                <i data-lucide="bot" size="44"></i>
+            <div class="card" data-aos="fade-up" data-aos-delay="100">
+                <i data-lucide="bot" size="48"></i>
                 <h3>IA Generativa</h3>
-                <p>Implementação de agentes inteligentes e integração de LLMs para automação de atendimento e análise de documentos.</p>
+                <p>Desenvolvimento de agentes customizados e integração de LLMs para transformar o atendimento e a análise de dados em tempo real.</p>
             </div>
 
-            <div class="card">
-                <i data-lucide="workflow" size="44"></i>
+            <div class="card" data-aos="fade-up" data-aos-delay="200">
+                <i data-lucide="workflow" size="48"></i>
                 <h3>Automação n8n</h3>
-                <p>Criação de fluxos complexos conectando Google Sheets, CRMs e APIs para eliminar tarefas repetitivas.</p>
+                <p>Arquitetura de fluxos complexos para integrar CRMs, ERPs e APIs, eliminando gargalos manuais e erros humanos.</p>
             </div>
 
-            <div class="card">
-                <i data-lucide="layers" size="44"></i>
-                <h3>Arquitetura de Dados</h3>
-                <p>Estruturação de bancos de dados e pipelines de processamento em ambientes Linux e Docker de alta performance.</p>
+            <div class="card" data-aos="fade-up" data-aos-delay="300">
+                <i data-lucide="layers" size="48"></i>
+                <h3>Data Architecture</h3>
+                <p>Estruturação de pipelines escaláveis e governança de dados em infraestrutura segura baseada em Linux e Docker.</p>
             </div>
         </div>
     </main>
 
+    <section class="about-section" id="sobre">
+        <div class="about-image" data-aos="zoom-in-right">
+            <img src="assets/datacore-hero.png" alt="Sobre a Usedatacore">
+        </div>
+        <div class="about-text" data-aos="fade-left">
+            <h2>Tecnologia que impulsiona o seu <span>negócio</span></h2>
+            <p>
+                A Usedatacore nasceu da necessidade de conectar o mundo dos dados brutos à inteligência prática. Não apenas entregamos tecnologia; construímos os alicerces para que sua empresa tome decisões baseadas em fatos.
+            </p>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h4>99%</h4>
+                    <span>Automação de Processos</span>
+                </div>
+                <div class="stat-item">
+                    <h4>24/7</h4>
+                    <span>Monitoramento de Dados</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer>
-        <p style="margin-bottom: 10px;">&copy; 2026 Usedatacore. Inteligência em cada bit.</p>
-        <p style="font-size: 0.8rem; opacity: 0.6;">Infraestrutura própria segura e escalável.</p>
+        <img src="assets/udc-icon.png" alt="Logo" class="footer-logo">
+        <div class="footer-links">
+            <a href="#servicos">Serviços</a>
+            <a href="#sobre">Sobre</a>
+            <a href="https://wa.me/5511980798331">Suporte</a>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 Usedatacore. Todos os direitos reservados.</p>
+            <p style="margin-top: 10px; opacity: 0.5;">Infraestrutura Enterprise • Criptografia de Ponta a Ponta</p>
+        </div>
     </footer>
 
     <script>
+        // Inicializar ícones
         lucide.createIcons();
+        
+        // Inicializar Animações
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // Efeito do Header ao rolar
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.padding = '15px 5%';
+                navbar.style.background = 'rgba(13, 17, 23, 0.95)';
+            } else {
+                navbar.style.padding = '20px 5%';
+                navbar.style.background = 'rgba(13, 17, 23, 0.7)';
+            }
+        });
     </script>
 </body>
 </html>
