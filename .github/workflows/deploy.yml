@@ -16,7 +16,7 @@ jobs:
         uses: shimataro/ssh-key-action@v2
         with:
           key: ${{ secrets.SSH_KEY }}
-          known_hosts: "unnecessary" # Vamos pular a verificação estrita para facilitar
+          known_hosts: "unnecessary"
           if_key_exists: fail
 
       - name: Adding Known Hosts
@@ -25,6 +25,7 @@ jobs:
       - name: Deploy with Rsync
         run: |
           rsync -avz --delete \
+            -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" \
             --exclude '.git*' \
             --exclude '.github*' \
             ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.REMOTE_TARGET }}
