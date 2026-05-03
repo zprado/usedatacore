@@ -721,6 +721,12 @@
             </div>
             <button type="submit" class="btn-submit">Enviar Mensagem</button>
         </form>
+
+        <div id="form-success-msg" style="display: none; background: rgba(88, 166, 255, 0.1); border: 1px solid var(--primary); padding: 40px; border-radius: 20px; text-align: center; max-width: 800px; margin: 0 auto; box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
+            <i data-lucide="check-circle" size="48" style="color: var(--primary); margin-bottom: 20px; display: inline-block;"></i>
+            <h3 style="color: #fff; font-size: 1.5rem; margin-bottom: 10px;">Recebemos seu contato!</h3>
+            <p style="color: var(--text-dim); font-size: 1.1rem;">Nossa equipe vai analisar sua solicitação e em breve entraremos em contato.</p>
+        </div>
     </section>
 
     <footer>
@@ -798,7 +804,8 @@
                 });
 
                 if (response.ok) {
-                    alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+                    event.target.style.display = 'none';
+                    document.getElementById('form-success-msg').style.display = 'block';
                     event.target.reset();
                 } else {
                     alert('Ocorreu um erro ao enviar a mensagem. Tente novamente mais tarde.');
