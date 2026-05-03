@@ -434,6 +434,93 @@
             font-size: 0.85rem;
         }
 
+        /* --- CONTATO --- */
+        .contact-section {
+            padding: 100px 5%;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            scroll-margin-top: 80px;
+        }
+
+        .contact-section h2 {
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .contact-section p {
+            color: var(--text-dim);
+            margin-bottom: 40px;
+        }
+
+        .contact-form {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: left;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-submit {
+            background-color: var(--primary);
+            color: #fff;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: #4088d8;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px var(--primary-glow);
+        }
+
         /* --- RESPONSIVIDADE --- */
         @media (max-width: 992px) {
             .grid, .about-section, .process-grid { grid-template-columns: 1fr; }
@@ -460,7 +547,7 @@
         <div class="nav-links">
             <a href="#servicos">Serviços</a>
             <a href="#sobre">Sobre</a>
-            <a href="https://wa.me/5511980798331">Contato</a>
+            <a href="#contato">Contato</a>
         </div>
     </nav>
 
@@ -591,6 +678,32 @@
         </div>
     </section>
 
+    <section class="contact-section" id="contato">
+        <div data-aos="fade-up">
+            <h2>Fale Conosco</h2>
+            <p>Preencha os dados abaixo para que possamos entender sua necessidade e ajudar o seu negócio.</p>
+        </div>
+        <form class="contact-form" onsubmit="enviarParaWebhook(event)" data-aos="fade-up" data-aos-delay="200">
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" name="nome" class="form-control" placeholder="Seu nome completo" required>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="seu@email.com" required>
+            </div>
+            <div class="form-group">
+                <label for="telefone">Telefone</label>
+                <input type="tel" id="telefone" name="telefone" class="form-control" placeholder="(00) 00000-0000" required>
+            </div>
+            <div class="form-group">
+                <label for="necessidade">Como podemos ajudá-lo?</label>
+                <textarea id="necessidade" name="necessidade" class="form-control" placeholder="Descreva brevemente a sua necessidade..." required></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Enviar Mensagem</button>
+        </form>
+    </section>
+
     <footer>
         <img src="assets/udc-icon.png" alt="Logo" class="footer-logo">
         <div class="footer-links">
@@ -626,6 +739,50 @@
                 navbar.style.background = 'rgba(13, 17, 23, 0.7)';
             }
         });
+
+        // Enviar formulário para o Webhook
+        async function enviarParaWebhook(event) {
+            event.preventDefault();
+            
+            const btnSubmit = event.target.querySelector('.btn-submit');
+            const originalText = btnSubmit.innerText;
+            btnSubmit.innerText = 'Enviando...';
+            btnSubmit.disabled = true;
+
+            const payload = {
+                nome: document.getElementById('nome').value,
+                email: document.getElementById('email').value,
+                telefone: document.getElementById('telefone').value,
+                necessidade: document.getElementById('necessidade').value,
+                data_envio: new Date().toISOString()
+            };
+
+            // URL DO WEBHOOK
+            const webhookUrl = 'https://io.usedatacore.com.br/webhook/2b9d1775-55cd-44d0-b15b-fe5f0dfdf8d0';
+
+            try {
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8',
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+                    event.target.reset();
+                } else {
+                    alert('Ocorreu um erro ao enviar a mensagem. Tente novamente mais tarde.');
+                }
+            } catch (error) {
+                console.error('Erro ao enviar:', error);
+                alert('Erro de conexão ao enviar a mensagem. Verifique sua internet ou tente mais tarde.');
+            } finally {
+                btnSubmit.innerText = originalText;
+                btnSubmit.disabled = false;
+            }
+        }
     </script>
 </body>
 </html>
