@@ -21,6 +21,9 @@
     <!-- AOS Animate on Scroll -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Intl-Tel-Input -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/css/intlTelInput.css">
 
     <style>
         :root {
@@ -520,6 +523,22 @@
             transform: translateY(-2px);
             box-shadow: 0 10px 20px var(--primary-glow);
         }
+        /* Intl-Tel-Input Customizations for Dark Mode */
+        .iti { width: 100%; }
+        .iti__country-list {
+            background-color: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-radius: 10px;
+        }
+        .iti__country.iti__highlight { background-color: rgba(255, 255, 255, 0.1); }
+        .iti__search-input {
+            background-color: rgba(0,0,0,0.2);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 5px;
+            margin: 5px;
+        }
 
         /* --- RESPONSIVIDADE --- */
         @media (max-width: 992px) {
@@ -717,7 +736,16 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/js/intlTelInput.min.js"></script>
     <script>
+        // Inicializar Intl-Tel-Input (Bandeiras e Código DDI)
+        const phoneInput = document.querySelector("#telefone");
+        const iti = window.intlTelInput(phoneInput, {
+            initialCountry: "br",
+            preferredCountries: ["br", "us", "pt"],
+            utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/js/utils.js",
+        });
+
         // Inicializar ícones
         lucide.createIcons();
         
@@ -752,7 +780,7 @@
             const payload = {
                 nome: document.getElementById('nome').value,
                 email: document.getElementById('email').value,
-                telefone: document.getElementById('telefone').value,
+                telefone: iti.getNumber(),
                 necessidade: document.getElementById('necessidade').value,
                 data_envio: new Date().toISOString()
             };
